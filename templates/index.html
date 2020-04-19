@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="page">
+      <!-- navbar-->
+      <header class="header">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <div class="navbar-header"><a href="{% url 'index' %}" class="navbar-brand">
+                  <div class="brand-text d-none d-md-inline-block"><strong><img src="{% static 'img/flags/djib1.png' %}"> COVID-19 | DJIBOUTI</strong></div></a></div>
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <!-- Notifications dropdown-->
+                <!-- Languages dropdown    -->
+                <li> <button type="button" class="rounded-pill pt-1 pb-1 btn btn-block btn-success"><b>Appel  1 5 1 7</b></button></li>
+                <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="{% static 'img/flags/16/FR.png' %}" alt="Francais"><span class="d-none d-sm-inline-block">Francais</span></a>
+                  <ul aria-labelledby="languages" class="dropdown-menu">
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="{% static 'img/flags/16/GB.png' %}" alt="English" class="mr-2"><span>English</span></a></li>
+                  </ul>
+                </li>
+                <!-- Log out-->
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <!-- Counts Section -->
+      <section class="dashboard-counts section-padding">
+        <div class="container-fluid">
+          <div class="row">
+            {% for case in cases %}
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-user"></i></div>
+                <div class="name"><strong class="text-uppercase">cas confirmés</strong><span>dernières 24 heures</span>
+                  <div class="count-number">{{case.new_case}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-flask"></i></div>
+                <div class="name"><strong class="text-uppercase">Lab Test</strong><span>dernières 24 heures</span>
+                  <div class="count-number">{{case.new_lab}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-user"></i></div>
+                <div class="name"><strong class="text-uppercase">cumul cas confirmés</strong>
+                  <div class="count-number">{{case.total_case}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-flask"></i></div>
+                <div class="name"><strong class="text-uppercase">CUMUL Test Réaliser</strong>
+                  <div class="count-number">{{case.total_lab}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-home"></i></div>
+                <div class="name"><strong class="text-uppercase">guérir</strong><span>Since Feb 3</span>
+                  <div class="count-number">{{case.recovered}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-list-1"></i></div>
+                <div class="name"><strong class="text-uppercase">Décès</strong><span>Since Feb 3</span>
+                  <div class="count-number">{{case.deceased}}</div>
+                </div>
+              </div>
+            </div>
+           {% endfor %} 
+          </div>
+        </div>
+      </section>
+      <!-- Header Section-->
+      <section class="dashboard-header section-padding">
+        <div class="container-fluid">
+          <div class="row d-flex align-items-md-stretch">
+            <!-- To Do List-->
+            <div class="col-lg-6 col-md-6">
+              <div class="card to-do">
+                <h2 class="display h4">Rappel des Mesures de Prévention</h2>
+                <p></p>
+                <img src="{% static 'img/gestes-barrieres.png' %}">
+              </div>
+            </div>
+            <!-- Pie Chart-->
+         
+            <!-- Line Chart -->
+            <div class="col-lg-6 col-md-12 flex-lg-last flex-md-first align-self-baseline">
+              <div class="card sales-report">
+                <h2 class="display h4">Evaluation des Cas Confirmes au Pays</h2>
+                <p> </p>
+                <div class="line-chart" style="height:320px">
+                  <canvas id="areaChart1"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Updates Section -->
+      <section class="mt-30px mb-30px">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-8 col-md-12">
+              <!-- Recent Updates Widget          -->
+              <div id="new-updates" class="card updates recent-updated">
+                <div id="updates-header" class="card-header d-flex justify-content-between align-items-center">
+                  <h2 class="h5 display"><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box">Nouvelles Mise à jour</a></h2><a data-toggle="collapse" data-parent="#new-updates" href="#updates-box" aria-expanded="true" aria-controls="updates-box"><i class="fa fa-angle-down"></i></a>
+                </div>
+                <div id="updates-box" role="tabpanel" class="collapse show">
+                  {% for post in posts %}
+                  <ul class="news list-unstyled">
+                    <!-- Item-->
+                    <li class="d-flex justify-content-between"> 
+                      <div class="left-col d-flex">
+                        <div class="icon"><i class="icon-rss-feed"></i></div>
+                        <div class="title text-primary"><strong>{{ post.title }}</strong>
+                          <p>{{post.content|slice:":200" }} <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary float-right">Lire plus &rarr;</a></p>     
+                        </div>
+                      </div>
+                      <div class="right-col text-right">
+                        <div class="update-date">{{post.created_on|date:"d"}}<span class="month">{{post.created_on|date:"M"}}</span></div>
+                      </div>
+                    </li>
+                  </ul>
+                  {% endfor %}
+                </div>
+              </div>
+              <!-- Recent Updates Widget End-->
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <img src="{% static 'img/poster.jpg' %}">
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="main-footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <p>Your company &copy; 2017-2020</p>
+            </div>
+            <div class="col-sm-6 text-right">
+              <p>Version 1.4.7</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="page">
+
+<header class="header">
+    <nav class="navbar">
+      <div class="container-fluid">
+        <div class="navbar-holder d-flex align-items-center justify-content-between">
+          <div class="navbar-header"><a href="{% url 'index' %}" class="navbar-brand">
+              <div class="brand-text d-none d-md-inline-block"><strong><img src="{% static 'img/flags/djib1.png' %}"> COVID-19 DJIBOUTI</strong></div></a></div>
+          <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+            <!-- Notifications dropdown-->
+            <!-- Languages dropdown    -->
+            <li> <button type="button" class="rounded-pill pt-1 pb-1 btn btn-block btn-success"><b>Appel  1 5 1 7</b></button></li>
+            <li class="nav-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="{% static 'img/flags/16/FR.png' %}" alt="Francais"><span class="d-none d-sm-inline-block">Francais</span></a>
+              <ul aria-labelledby="languages" class="dropdown-menu">
+                <li><a rel="nofollow" href="#" class="dropdown-item"> <img src="{% static 'img/flags/16/GB.png' %}" alt="English" class="mr-2"><span>English</span></a></li>
+              </ul>
+            </li>
+            <!-- Log out-->
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <section class="mt-30px mb-30px">
+    <div class="container-fluid">
+      <div class="row">
+   
+        <div class="col-lg-8 col-md-8">
+          <!-- Recent Updates Widget          -->
+          <div id="new-updates" class="card updates recent-updated">
+            <div id="updates-box" role="tabpanel" class="collapse show">
+              <ul class="news list-unstyled">
+                <!-- Item-->
+                <li class="d-flex justify-content-between pt-5"> 
+                  <div class="left-col d-flex">
+                    <div class="icon"><h2><i class="icon-rss-feed"></i></h2></div>
+                        <div class="title text-primary"><h3>{{ post.title }}</h3>
+                        <br/>
+                        <p class="text-justify">{{post.content|linebreaks}}</p>
+                    </div>
+                  </div>
+                  <div class="right-col text-right">
+                    <div class="update-date">{{post.created_on|date:"d"}}<span class="month">{{post.created_on|date:"M"}}</span></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Recent Updates Widget End-->
+        </div>
+        <div class="col-lg-4 col-md-12 float-right">
+          <img src="{% static 'img/poster3.jpg' %}">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+</div>
+
+{% endblock content %}
